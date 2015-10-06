@@ -14,4 +14,8 @@ files[] = views/uc_views_attribute_handler_field_order_product_attribute.inc
 files[] = views/uc_views_attribute_handler_field_combination.inc
 files[] = views/uc_views_attribute_handler_field_combination_price.inc
 files[] = views/uc_views_attribute_handler_filter_attr.inc
+files[] = views/uc_views_handler_field_attributes.inc
+
+files[] = views/uc_views_attribute_handler_field_order_product_attribute01.inc
+files[] = views/uc_views_attribute_handler_field_order_product_attribute02.inc
 
