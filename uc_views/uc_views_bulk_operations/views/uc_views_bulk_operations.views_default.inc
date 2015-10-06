@@ -1,4 +1,5 @@
 <?php
+// $Id: uc_views_bulk_operations.views_default.inc,v 1.1.2.1 2009/06/22 10:37:55 madsph Exp $
 
 /**
  * @file
@@ -150,8 +151,7 @@ function uc_views_bulk_operations_views_default_views() {
     ),
   ));
   $handler->override_option('access', array(
-    'type' => 'perm',
-    'perm' => 'view all orders',
+    'type' => 'none',
   ));
   $handler->override_option('cache', array(
     'type' => 'none',
@@ -237,7 +237,7 @@ function uc_views_bulk_operations_views_default_views() {
     'description' => '',
     'weight' => 0,
   ));
-
+  
   $views[$view->name] = $view;
 
   return $views;

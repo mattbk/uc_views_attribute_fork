@@ -1,4 +1,5 @@
 <?php
+// $Id: uc_views_attribute_handler_field_combination_price.inc,v 1.1.2.2 2010/06/15 23:13:53 hanoii Exp $
 
 /**
  * @file
@@ -16,7 +17,7 @@ class uc_views_attribute_handler_field_combination_price extends uc_views_handle
     // Is this the proper way to access vid?
     $this->aliases['vid'] = $this->query->add_field('node', 'vid');
   }
-
+  
   function render($values) {
     switch ($this->definition['price']) {
       case 'sell_price':
@@ -37,14 +38,16 @@ class uc_views_attribute_handler_field_combination_price extends uc_views_handle
     // I did try to add it through
     // additional_fields => array('product_price' => array('table' => 'uc_products', 'field' => 'sell_price'))
     // but it didn't work.
-    $price = db_result(db_query("SELECT $uc_products_field FROM {uc_products} WHERE nid = %d AND vid = %d", $values->nid, $values->{$this->aliases['vid']}));
+    // TODO Please convert this statement to the D7 database API syntax.    $offset_total = 0;
+    $price = db_query("SELECT $uc_products_field FROM {uc_products} WHERE nid = %d AND vid = %d", $values->nid, $values->{$this->aliases['vid']})->fetchField();
     $offset_total = 0;
-
-    $combination =$values->{$this->aliases['combination']};
+    
+    $combination = $values->{$this->aliases['combination']};
     if ($combination) {
       $combination = unserialize($combination);
       foreach ($combination as $aid => $oid) {
-        $offset = db_result(db_query("SELECT $uc_product_options_field FROM {uc_product_options} WHERE nid = %d AND oid = %d", $values->nid, $oid));
+        // TODO Please convert this statement to the D7 database API syntax.
+        $offset = db_query("SELECT $uc_product_options_field FROM {uc_product_options} WHERE nid = %d AND oid = %d", $values->nid, $oid)->fetchField();
         $offset_total += $offset;
       }
     }

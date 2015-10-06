@@ -1,3 +1,4 @@
+; $Id: uc_views_attribute.info,v 1.1.2.3 2010/01/19 18:08:58 hanoii Exp $
 name = Ubercart Views Attribute
 description = Create views on Ubercart Attribute data.
 dependencies[] = uc_stock
@@ -5,13 +6,12 @@ dependencies[] = uc_product
 dependencies[] = uc_order
 dependencies[] = uc_attribute
 dependencies[] = views
-dependencies[] = uc_views
 package = "Ubercart - views"
-core = 6.x
+core = 7.x
 
-; Information added by drupal.org packaging script on 2013-10-19
-version = "6.x-3.3+0-dev"
-core = "6.x"
-project = "uc_views"
-datestamp = "1382149712"
+
+files[] = views/uc_views_attribute_handler_field_order_product_attribute.inc
+files[] = views/uc_views_attribute_handler_field_combination.inc
+files[] = views/uc_views_attribute_handler_field_combination_price.inc
+files[] = views/uc_views_attribute_handler_filter_attr.inc
 

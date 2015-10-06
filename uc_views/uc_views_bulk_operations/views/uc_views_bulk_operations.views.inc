@@ -1,4 +1,5 @@
 <?php
+// $Id: uc_views_bulk_operations.views.inc,v 1.1.2.1 2009/06/22 10:37:55 madsph Exp $
 /**
  * @file
  * Views 2 hooks and callback registries.

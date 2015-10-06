@@ -1,4 +1,5 @@
 <?php
+// $Id: uc_views_attribute_handler_field_combination.inc,v 1.1.2.1 2009/09/22 07:32:01 madsph Exp $
 
 /**
  * @file
@@ -9,7 +10,7 @@
  * Field handler to provide a human-readable version of the stored serialized combination of attributes
  */
 class uc_views_attribute_handler_field_combination extends views_handler_field {
- /**
+  /**
    *
    * @param integer $nid
    *   Node ID
@@ -26,7 +27,7 @@ class uc_views_attribute_handler_field_combination extends views_handler_field {
     $query_from = " FROM";
     $query_where = " WHERE";
     $query_order = " ORDER BY";
-    $result = db_query("SELECT pa.nid, pa.aid, pa.ordering, a.name, a.ordering, ao.aid, COUNT(po.oid) FROM {uc_product_attributes} AS pa LEFT JOIN {uc_attributes} AS a ON pa.aid = a.aid LEFT JOIN {uc_attribute_options} AS ao ON a.aid = ao.aid LEFT JOIN {uc_product_options} AS po ON ao.oid = po.oid AND po.nid = %d WHERE pa.nid = %d GROUP BY ao.aid, pa.aid, a.name, pa.ordering, a.ordering, pa.nid HAVING count(po.oid) > 0 ORDER BY pa.ordering, a.ordering", $nid, $nid);
+    $result = db_query("SELECT pa.nid, pa.aid, pa.ordering, a.name, a.ordering, ao.aid, COUNT(po.oid) FROM {uc_product_attributes} AS pa LEFT JOIN {uc_attributes} AS a ON pa.aid = a.aid LEFT JOIN {uc_attribute_options} AS ao ON a.aid = ao.aid LEFT JOIN {uc_product_options} AS po ON ao.oid = po.oid AND po.nid = %d WHERE pa.nid = :pa.nid GROUP BY ao.aid, pa.aid, a.name, pa.ordering, a.ordering, pa.nid HAVING count(po.oid) > :count(po.oid) ORDER BY pa.ordering, a.ordering", array(':pa.nid' => $nid, ':count(po.oid)' => 0, '' => $nid));
     $i = 1;
     $values = array();
 
@@ -34,7 +35,7 @@ class uc_views_attribute_handler_field_combination extends views_handler_field {
       $query_select .= " ao$i.aid AS aid$i, ao$i.name AS name$i, ao$i.oid AS oid$i, po$i.ordering,";
       $query_from .= " ({uc_product_options} AS po$i LEFT JOIN {uc_attribute_options} AS ao$i ON po$i.oid = ao$i.oid AND po$i.nid = %d),";
       $values[] = $nid;
-      $query_where .= " ao$i.aid = ". $prod_attr->aid ." AND";
+      $query_where .= " ao$i.aid = " . $prod_attr->aid . " AND";
       $query_order .= " po$i.ordering, ao$i.name,";
       ++$i;
       $attribute_ids[] = $prod_attr->aid;
@@ -48,16 +49,17 @@ class uc_views_attribute_handler_field_combination extends views_handler_field {
     $query_order = rtrim($query_order, ',');
 
     if ($num_prod_attr) {
+      // TODO Please convert this statement to the D7 database API syntax.
       $result = db_query($query_select . $query_from . $query_where . $query_order, $values);
       while ($row = db_fetch_object($result)) {
         $attrs_info = array();
         $attrs = array();
-        for ($i = 1 ; $i <= $num_prod_attr ; $i++) {
+        for ($i = 1; $i <= $num_prod_attr; $i++) {
           $aid_key = "aid$i";
           $oid_key = "oid$i";
           $name_key = "name$i";
           $aid = $row->$aid_key;
-          $attr = db_result(db_query("SELECT name FROM {uc_attributes} WHERE aid = %d", $aid));
+          $attr = db_query("SELECT name FROM {uc_attributes} WHERE aid = :aid", array(':aid' => $aid))->fetchField();
           $attrs_info[$attr] = $row->$name_key;
           $attrs[$aid] = $row->$oid_key;
         }
@@ -67,7 +69,7 @@ class uc_views_attribute_handler_field_combination extends views_handler_field {
     }
 
     // Exclude configured combinations
-    $result = db_query("SELECT * FROM {uc_product_adjustments} WHERE nid = %d", $nid);
+    $result = db_query("SELECT * FROM {uc_product_adjustments} WHERE nid = :nid", array(':nid' => $nid));
     while ($row = db_fetch_object($result)) {
       // TODO: Remove unserialize/asort/serialize because rc6+ already sorts it
       $c = unserialize($row->combination);
@@ -125,13 +127,13 @@ class uc_views_attribute_handler_field_combination extends views_handler_field {
     if (is_string($combination)) {
       $combination = unserialize($combination);
       $attributes = array();
-      foreach($combination as $aid => $oid) {
+      foreach ($combination as $aid => $oid) {
         $attribute = uc_attribute_load($aid);
         $option = uc_attribute_option_load($oid);
         $attributes[] = "$attribute->name: $option->name";
       }
       $items[] = implode($attributes, ', ');
-      return theme('item_list', $items);
+      return theme('item_list', array('items' => $items));
     }
     // combination information is not found, render other node's attribute and options
     else if ($this->options['fetch_if_null']) {
@@ -145,7 +147,7 @@ class uc_views_attribute_handler_field_combination extends views_handler_field {
           }
           $items[] = implode($attributes, ', ');
         }
-        return theme('item_list', $items);
+        return theme('item_list', array('items' => $items));
       }
     }
     return parent::render($values);

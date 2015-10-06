@@ -1,34 +1,25 @@
 <?php
+// $Id: uc_views_attribute.views.inc,v 1.1.2.5 2010/04/29 13:38:55 hanoii Exp $
 /**
  * @file
  * Views 2 hooks and callback registries.
  */
 
 /**
- * Implementation of hook_views_data().
+ * Implements hook_views_data().
  */
 function uc_views_attribute_views_data() {
   $uc_product_attributes = drupal_get_schema('uc_product_attributes');
-
   //Create a filter for each product attribute
   $result = db_query("SELECT aid, name, description FROM {uc_attributes}");
-  while($row = db_fetch_object($result)) {
-    $data['uc_order_products']['attr_'.$row->aid] = array(
-      'title' => 'Attribute: '.$row->name,
-      'help' => 'Attribute desc: '.$row->description,
+foreach($result as $row) {
+    $data['uc_order_products']['attr_' . $row->aid] = array(
+      'title' => 'Attribute: ' . $row->name,
+      'help' => 'Attribute desc: ' . $row->description,
       'filter' => array(
         'handler' => 'uc_views_attribute_handler_filter_attr',
       ),
       'aid' => $row->aid,
-    );
-
-    // Create a filter for each product attribute
-    $data['uc_product_adjustments']['pattr_'.$row->aid] = array(
-      'title' => /*'Attribute: '.*/ $row->name,
-      'help' => 'Attribute desc: '.$row->description,
-      'filter' => array(
-        'handler' => 'uc_views_attribute_handler_filter_product_attr',
-      ),
     );
   }
 
@@ -38,8 +29,8 @@ function uc_views_attribute_views_data() {
   $uc_product_adjustments = drupal_get_schema('uc_product_adjustments');
 
   $data['uc_product_adjustments']['table']['join']['node'] = array(
-      'left_field' => 'nid',
-      'field' => 'nid',
+    'left_field' => 'nid',
+    'field' => 'nid',
   );
 
   $data['uc_product_adjustments']['model'] = array(
@@ -54,7 +45,7 @@ function uc_views_attribute_views_data() {
       'relationship field' => 'model',
       'handler' => 'views_handler_relationship',
       'label' => t('Model'),
-    )
+    ),
   );
 
   $data['uc_product_adjustments']['combination'] = array(
@@ -64,7 +55,6 @@ function uc_views_attribute_views_data() {
       'handler' => 'uc_views_attribute_handler_field_combination',
     ),
   );
-
   $data['uc_product_adjustments']['combination_sell_price'] = array(
     'title' => t('Sell price w/attributes adjustment'),
     'help' => t('The sell price of the product with all the price adjustments from its combination of attributes.'),
@@ -102,7 +92,7 @@ function uc_views_attribute_views_data() {
 
   // Add viewhandler for uc_order_product attributes
   $data['uc_order_products']['attributes'] = array(
-    'title' => t('Ordered product attributes'),
+    'title' => t('Product attributes'),
     'help' => t('List of attribute selection for the ordered product.'),
     'group' => t('Ubercart order product'),
     'field' => array(
@@ -116,7 +106,7 @@ function uc_views_attribute_views_data() {
 }
 
 /**
- * Implementation of hook_views_handlers().
+ * Implements hook_views_handlers().
  */
 function uc_views_attribute_views_handlers() {
   return array(
@@ -128,9 +118,8 @@ function uc_views_attribute_views_handlers() {
       'uc_views_attribute_handler_field_combination' => array('parent' => 'views_handler_field'),
       'uc_views_attribute_handler_field_order_product_attribute' => array('parent' => 'views_handler_field'),
       'uc_views_attribute_handler_field_combination_price' => array('parent' => 'uc_views_handler_field_money_amount'),
-      // filters
+      //fiters
       'uc_views_attribute_handler_filter_attr' => array('parent' => 'views_handler_filter_in_operator'),
-      'uc_views_attribute_handler_filter_product_attr' => array('parent' => 'views_handler_filter_in_operator'),
     ),
   );
 }
@@ -138,8 +127,7 @@ function uc_views_attribute_views_handlers() {
 /**
  * Conditionally add editablefields support.
  */
-function uc_views_attribute_views_tables_alter(&$tables) {
-}
+function uc_views_attribute_views_tables_alter(&$tables) { }
 
 /**
  * Load all attributes.
@@ -147,7 +135,7 @@ function uc_views_attribute_views_tables_alter(&$tables) {
 function uc_get_attributes() {
   $result = db_query("SELECT aid FROM {uc_attributes} ORDER BY ordering");
   $chosen_attr = array();
-  while ($attr = db_fetch_object($result)){
+  while ($attr = db_fetch_object($result)) {
     $chosen_attr[$attr->aid] = uc_attribute_load($attr->aid);
   }
   return $chosen_attr;

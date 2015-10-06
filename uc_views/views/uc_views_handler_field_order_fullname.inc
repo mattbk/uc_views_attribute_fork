@@ -1,4 +1,5 @@
 <?php
+// $Id: uc_views_handler_field_order_fullname.inc,v 1.1.2.1 2010/02/27 00:14:24 hanoii Exp $
 
 /**
  * @file
@@ -30,16 +31,16 @@ class uc_views_handler_field_order_fullname extends views_handler_field {
       '#default_value' => $this->options['format'],
     );
   }
-
+  
   function query() {
     $this->ensure_my_table();
     $this->add_additional_fields();
   }
-
+  
   function render($values) {
     $prefix = $this->definition['prefix'];
-    $first = check_plain($values->{$this->aliases[$prefix . '_first_name']});
-    $last = check_plain($values->{$this->aliases[$prefix . '_last_name']});
+    $first = $values->{$this->aliases[$prefix . '_first_name']};
+    $last = $values->{$this->aliases[$prefix . '_last_name']};
     switch ($this->options['format']) {
       case 'last_first':
         return "$last $first";

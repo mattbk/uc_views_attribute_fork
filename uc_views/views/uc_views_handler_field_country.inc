@@ -1,4 +1,5 @@
 <?php
+// $Id: uc_views_handler_field_country.inc,v 1.1 2009/03/23 09:26:49 madsph Exp $
 
 /**
  * @file
