@@ -107,9 +107,10 @@ foreach($result as $row) {
     'help' => t('The first attribute selection for the ordered product.'),
     'group' => t('Ubercart order product'),
     'field' => array(
-      'table' => 'uc_order_products',
+        'table' => 'uc_order_products',
     	'real field' => 'data',
-      'handler' => 'uc_views_attribute_handler_field_order_product_attribute01',
+        'handler' => 'uc_views_attribute_handler_field_order_product_attribute01',
+        'click sortable' => TRUE,
     ),
   );  
   
@@ -122,6 +123,7 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute02',
+      'click sortable' => TRUE,
     ),
   ); 
   
@@ -134,6 +136,7 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute03',
+      'click sortable' => TRUE,
     ),
   );
    
@@ -146,6 +149,7 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute04',
+      'click sortable' => TRUE,
     ),
   );
   
@@ -158,6 +162,7 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute05',
+      'click sortable' => TRUE,
     ),
   );
   
@@ -170,6 +175,7 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute06',
+      'click sortable' => TRUE,
     ),
   ); 
   
@@ -182,6 +188,7 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute07',
+      'click sortable' => TRUE,
     ),
   ); 
 
