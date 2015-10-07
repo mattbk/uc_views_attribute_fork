@@ -3,7 +3,13 @@ Fork of (part of the) the Drupal module [uc_views](https://www.drupal.org/projec
 
 I am not the original creator or maintaner of uc_views at Drupal.org.  I can't guarantee any support of this fork in the future, so use at your own risk.
 
-Some history for clarity:
+#### How it works
+
+This module does not know the names of the attributes attached to your products.  Your attributes are stored in an array; this module grabs the first, second, third, etc. (up to seven) values in the attributes array.  Add an attribute to your View, see what data are in there, and change your field label accordingly.
+
+Known issues at https://github.com/mattbk/uc_views_attribute_fork/issues.
+
+#### Some history for clarity:
 
 `2011-10-19:` [miiimooo](https://www.drupal.org/u/miiimooo) created a [patch](https://www.drupal.org/node/908944#comment-5135048) for uc_views:
 > Attached is a patch to port uc_views_attribute partly to drupal 7. So far I've implemented and tested uc_views_attribute_handler_field_order_product_attribute (Fields -> add -> Ubercart order product: Product attributes). This field displays any selected options on a particular order.
