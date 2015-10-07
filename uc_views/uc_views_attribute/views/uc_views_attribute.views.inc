@@ -125,7 +125,20 @@ foreach($result as $row) {
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute02',
     ),
   ); 
+  
+    // Add viewhandler for uc_order_product attributes: Attribute 03
+  $data['uc_order_products']['attributes03'] = array(
+    'title' => t('Product attribute 03'),
+    'help' => t('The third attribute selection for the ordered product.'),
+    'group' => t('Ubercart order product'),
+    'field' => array(
+      'table' => 'uc_order_products',
+    	'real field' => 'data',
+      'handler' => 'uc_views_attribute_handler_field_order_product_attribute03',
+    ),
+  ); 
 
+  
   return $data;
 }
 

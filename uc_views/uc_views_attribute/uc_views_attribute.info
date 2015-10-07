@@ -17,4 +17,5 @@ files[] = views/uc_views_handler_field_attributes.inc
 
 files[] = views/uc_views_attribute_handler_field_order_product_attribute01.inc
 files[] = views/uc_views_attribute_handler_field_order_product_attribute02.inc
+files[] = views/uc_views_attribute_handler_field_order_product_attribute03.inc
 
