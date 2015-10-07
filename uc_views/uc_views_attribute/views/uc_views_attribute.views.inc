@@ -1,5 +1,4 @@
 <?php
-// $Id: uc_views_attribute.views.inc,v 1.1.2.5 2010/04/29 13:38:55 hanoii Exp $
 /**
  * @file
  * Views 2 hooks and callback registries.
@@ -135,6 +134,54 @@ foreach($result as $row) {
       'table' => 'uc_order_products',
     	'real field' => 'data',
       'handler' => 'uc_views_attribute_handler_field_order_product_attribute03',
+    ),
+  );
+   
+      // Add viewhandler for uc_order_product attributes: Attribute 04
+  $data['uc_order_products']['attributes04'] = array(
+    'title' => t('Product attribute 04'),
+    'help' => t('The fourth attribute selection for the ordered product.'),
+    'group' => t('Ubercart order product'),
+    'field' => array(
+      'table' => 'uc_order_products',
+    	'real field' => 'data',
+      'handler' => 'uc_views_attribute_handler_field_order_product_attribute04',
+    ),
+  );
+  
+        // Add viewhandler for uc_order_product attributes: Attribute 05
+  $data['uc_order_products']['attributes05'] = array(
+    'title' => t('Product attribute 05'),
+    'help' => t('The fifth attribute selection for the ordered product.'),
+    'group' => t('Ubercart order product'),
+    'field' => array(
+      'table' => 'uc_order_products',
+    	'real field' => 'data',
+      'handler' => 'uc_views_attribute_handler_field_order_product_attribute05',
+    ),
+  );
+  
+          // Add viewhandler for uc_order_product attributes: Attribute 06
+  $data['uc_order_products']['attributes06'] = array(
+    'title' => t('Product attribute 06'),
+    'help' => t('The sixth attribute selection for the ordered product.'),
+    'group' => t('Ubercart order product'),
+    'field' => array(
+      'table' => 'uc_order_products',
+    	'real field' => 'data',
+      'handler' => 'uc_views_attribute_handler_field_order_product_attribute06',
+    ),
+  ); 
+  
+            // Add viewhandler for uc_order_product attributes: Attribute 07
+  $data['uc_order_products']['attributes07'] = array(
+    'title' => t('Product attribute 07'),
+    'help' => t('The seventh attribute selection for the ordered product.'),
+    'group' => t('Ubercart order product'),
+    'field' => array(
+      'table' => 'uc_order_products',
+    	'real field' => 'data',
+      'handler' => 'uc_views_attribute_handler_field_order_product_attribute07',
     ),
   ); 
 
