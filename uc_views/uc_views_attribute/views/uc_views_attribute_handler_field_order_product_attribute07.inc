@@ -22,8 +22,8 @@ class uc_views_attribute_handler_field_order_product_attribute07 extends views_h
       foreach ($data['attributes'] as $attribute => $option) {
         $rows[] = t('@option', array('@attribute' => $attribute, '@option' => implode(', ', (array) $option)));
         if (count($rows)) {
-		//Grab the value for the sixth attribute.
-		$result = $rows[5];
+		//Grab the value for the seventh attribute.
+		$result = $rows[6];
         }
       }
     }
